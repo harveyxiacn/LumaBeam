@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LumaBeam</string>
+
+    <!-- TV receiver -->
+    <string name="tv_step_apps">📺  <b>Video apps</b> on iPhone, iPad or Android: tap the TV / cast button and choose this TV.</string>
+    <string name="tv_step_android">📱  <b>Mirror an Android phone</b>: install LumaBeam on the phone and pick this TV.</string>
+    <string name="tv_step_web">🌐  <b>Any phone or tablet</b>: scan the code to send photos, videos and music.</string>
+    <string name="tv_step_web_url">🌐  Any phone or tablet: scan the code or open %1$s to send photos, videos and music.</string>
+    <string name="network_info">Ready · %1$s · same Wi-Fi as your phone</string>
+    <string name="no_network">Not connected to a network. Connect the TV to Wi-Fi or Ethernet.</string>
+    <string name="qr_hint">Scan with your phone camera</string>
+    <string name="qr_description">QR code with the address of this TV</string>
+    <string name="rename">Rename this TV</string>
+    <string name="allow_popup">Allow casts over other apps</string>
+    <string name="overlay_unavailable">This TV does not offer that setting; keep LumaBeam open to receive casts.</string>
+    <string name="paused">Paused</string>
+    <string name="cannot_play">Can\'t play \"%1$s\"</string>
+    <string name="mirroring_from">Mirroring from %1$s</string>
+    <string name="mirroring_ended">%1$s stopped mirroring</string>
+    <string name="receiver_channel">Receiver</string>
+    <string name="receiver_ready">%1$s is ready to receive casts</string>
+
+    <!-- Phone sender -->
+    <string name="sender_subtitle">Mirror this screen and sound to your TV</string>
+    <string name="tvs_nearby">TVs on your network</string>
+    <string name="searching">Looking for TVs running LumaBeam…</string>
+    <string name="tap_to_mirror">Tap a TV to start mirroring</string>
+    <string name="tv_entry">📺  %1$s\n%2$s</string>
+    <string name="manual_ip">Not listed? Enter the address shown on the TV:</string>
+    <string name="connect">Connect</string>
+    <string name="bad_ip">Enter an address like 192.168.1.50</string>
+    <string name="quality">Quality</string>
+    <string name="quality_smooth">Smooth – 720p, best for weak Wi-Fi</string>
+    <string name="quality_hd">HD – 1080p (recommended)</string>
+    <string name="quality_max">Max – up to 1440p, 5 GHz Wi-Fi</string>
+    <string name="send_audio">Play phone sound on the TV</string>
+    <string name="audio_note">Some apps block sound capture (for example a few streaming apps); their sound stays on the phone.</string>
+    <string name="audio_unsupported">Sending sound needs Android 10 or newer. Video only on this phone.</string>
+    <string name="audio_denied">Without that permission, sound stays on the phone.</string>
+    <string name="capture_denied">Screen capture was not allowed.</string>
+    <string name="already_mirroring">Already mirroring. Stop first to switch TVs.</string>
+    <string name="sender_tips">Tips: use 5 GHz Wi-Fi or connect the TV with a cable for the smoothest picture. Video apps can also cast directly — look for this TV in their cast / 投屏 menu.</string>
+    <string name="use_as_receiver">Use this device as a receiver</string>
+    <string name="stop_mirroring">Stop mirroring</string>
+    <string name="stop">Stop</string>
+    <string name="sender_channel">Screen mirroring</string>
+    <string name="mirroring_to">Mirroring to %1$s</string>
+    <string name="connecting_to">Connecting to %1$s…</string>
+    <string name="reconnecting_to">Reconnecting to %1$s…</string>
+    <string name="reconnecting_detail">Wi-Fi dropped for a moment. Mirroring resumes automatically.</string>
+    <string name="ended_by_tv">The TV ended mirroring.</string>
+    <string name="tv_unreachable">Can\'t reach the TV. Check that both are on the same Wi-Fi and the app is open on the TV.</string>
+</resources>

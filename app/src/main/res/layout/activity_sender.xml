@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textColor="@color/text"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@string/sender_subtitle"
+            android:textColor="@color/muted"
+            android:textSize="15sp" />
+
+        <!-- Live status while mirroring -->
+        <LinearLayout
+            android:id="@+id/statusCard"
+            style="@style/Card"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/statusTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/statusDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/muted"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/stopButton"
+                style="@style/DangerButton"
+                android:layout_marginTop="14dp"
+                android:text="@string/stop_mirroring" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/Card">
+
+            <TextView
+                style="@style/CardTitle"
+                android:text="@string/tvs_nearby" />
+
+            <TextView
+                android:id="@+id/searching"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/searching"
+                android:textColor="@color/muted"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:id="@+id/tvList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/manual_ip"
+                android:textColor="@color/muted"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/manualIp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="192.168.1.50"
+                    android:importantForAutofill="no"
+                    android:inputType="text"
+                    android:digits="0123456789."
+                    android:textColor="@color/text"
+                    android:textColorHint="@color/muted" />
+
+                <Button
+                    android:id="@+id/manualConnect"
+                    style="@style/PrimaryButton"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/connect" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout style="@style/Card">
+
+            <TextView
+                style="@style/CardTitle"
+                android:text="@string/quality" />
+
+            <RadioGroup
+                android:id="@+id/quality"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp">
+
+                <RadioButton
+                    android:id="@+id/qualitySmooth"
+                    style="@style/Choice"
+                    android:text="@string/quality_smooth" />
+
+                <RadioButton
+                    android:id="@+id/qualityHd"
+                    style="@style/Choice"
+                    android:text="@string/quality_hd" />
+
+                <RadioButton
+                    android:id="@+id/qualityMax"
+                    style="@style/Choice"
+                    android:text="@string/quality_max" />
+            </RadioGroup>
+
+            <CheckBox
+                android:id="@+id/audio"
+                style="@style/Choice"
+                android:layout_marginTop="6dp"
+                android:text="@string/send_audio" />
+
+            <TextView
+                android:id="@+id/audioNote"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/muted"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="@string/sender_tips"
+            android:textColor="@color/muted"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/useAsReceiver"
+            style="@style/SecondaryButton"
+            android:layout_marginTop="18dp"
+            android:text="@string/use_as_receiver" />
+    </LinearLayout>
+</ScrollView>

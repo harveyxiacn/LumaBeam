@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>{{NAME}}</title>
+<style>
+  :root {
+    --bg: #0e1116; --card: #181c24; --line: #2a303c; --text: #eef1f6; --muted: #9aa3b2;
+    --accent: #4f8cff; --accent-2: #39c6a5; --danger: #ff6b6b;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 16px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+    padding: max(16px, env(safe-area-inset-top)) 16px max(24px, env(safe-area-inset-bottom));
+  }
+  main { max-width: 560px; margin: 0 auto; }
+  header { display: flex; align-items: center; gap: 12px; margin: 4px 0 20px; }
+  .logo { width: 40px; height: 40px; border-radius: 10px; background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    display: grid; place-items: center; font-weight: 800; }
+  h1 { font-size: 20px; margin: 0; }
+  .sub { color: var(--muted); font-size: 14px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 16px; margin-bottom: 14px; }
+  .card h2 { font-size: 16px; margin: 0 0 4px; }
+  .pick { display: block; width: 100%; padding: 18px; border: 2px dashed var(--line); border-radius: 14px; text-align: center;
+    color: var(--text); background: transparent; font-size: 17px; cursor: pointer; margin-top: 10px; }
+  .pick:active { border-color: var(--accent); }
+  input[type=file] { display: none; }
+  input[type=url] { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg);
+    color: var(--text); font-size: 16px; margin-top: 10px; }
+  button { font: inherit; }
+  .btn { background: var(--accent); color: #fff; border: 0; border-radius: 10px; padding: 12px 16px; font-weight: 600; }
+  .btn.secondary { background: #262c38; }
+  .btn.danger { background: #3a2226; color: var(--danger); }
+  .row { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+  .row .btn { flex: 1; min-width: 80px; }
+  progress { width: 100%; height: 8px; margin-top: 12px; accent-color: var(--accent); }
+  .status { font-size: 14px; color: var(--muted); margin-top: 8px; min-height: 1.4em; overflow-wrap: anywhere; }
+  .now { font-weight: 600; overflow-wrap: anywhere; }
+  input[type=range] { width: 100%; accent-color: var(--accent); }
+  .hidden { display: none; }
+  .tips { color: var(--muted); font-size: 14px; }
+  .tips li { margin: 4px 0; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="logo">▶</div>
+    <div><h1>{{NAME}}</h1><div class="sub">LumaBeam · cast to this TV</div></div>
+  </header>
+
+  <section class="card">
+    <h2>Play a photo, video or song</h2>
+    <div class="sub">Pick a file from this phone. It plays on the TV when the upload finishes.</div>
+    <label class="pick" for="file">Choose from Photos / Files</label>
+    <input id="file" type="file" accept="video/*,audio/*,image/*">
+    <progress id="progress" class="hidden" max="100" value="0"></progress>
+    <div id="uploadStatus" class="status"></div>
+    <div class="row hidden" id="cancelRow"><button class="btn danger" id="cancel">Cancel upload</button></div>
+  </section>
+
+  <section class="card">
+    <h2>Play a link</h2>
+    <div class="sub">Paste a direct video, audio or stream URL (mp4, m3u8, mp3…).</div>
+    <input id="url" type="url" placeholder="https://…/video.mp4" autocomplete="off">
+    <div class="row"><button class="btn" id="sendUrl">Play on TV</button></div>
+    <div id="urlStatus" class="status"></div>
+  </section>
+
+  <section class="card">
+    <h2>Remote</h2>
+    <div class="now" id="now">Nothing playing</div>
+    <input id="seek" type="range" min="0" max="1000" value="0" disabled>
+    <div class="status" id="time"></div>
+    <div class="row">
+      <button class="btn secondary" data-cmd="play">▶ Play</button>
+      <button class="btn secondary" data-cmd="pause">❚❚ Pause</button>
+      <button class="btn danger" data-cmd="stop">■ Stop</button>
+    </div>
+    <div class="sub" style="margin-top:14px">Volume</div>
+    <input id="volume" type="range" min="0" max="100" value="50">
+    <div class="row hidden" id="mirrorRow"><button class="btn danger" data-cmd="stopMirror">Stop screen mirroring</button></div>
+  </section>
+
+  <section class="card tips">
+    <h2 style="color:var(--text)">Other ways to cast</h2>
+    <ul>
+      <li><b>Video apps</b> (iPhone, iPad, Android): tap the TV / cast / 投屏 button and pick <b>{{NAME}}</b>.</li>
+      <li><b>Android screen mirroring</b>: install LumaBeam on the phone and tap <i>Mirror my screen</i>.</li>
+    </ul>
+  </section>
+</main>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var xhr = null;
+
+  function fmt(ms) {
+    var s = Math.floor(ms / 1000), h = Math.floor(s / 3600), m = Math.floor(s / 60) % 60;
+    s = s % 60;
+    return (h ? h + ':' + (m < 10 ? '0' : '') : '') + m + ':' + (s < 10 ? '0' : '') + s;
+  }
+  function size(n) {
+    if (n > 1073741824) return (n / 1073741824).toFixed(2) + ' GB';
+    if (n > 1048576) return (n / 1048576).toFixed(1) + ' MB';
+    return Math.round(n / 1024) + ' KB';
+  }
+
+  $('file').addEventListener('change', function () {
+    var f = this.files && this.files[0];
+    if (!f) return;
+    var started = Date.now();
+    xhr = new XMLHttpRequest();
+    xhr.open('PUT', '/api/upload?name=' + encodeURIComponent(f.name) + '&type=' + encodeURIComponent(f.type || ''));
+    xhr.upload.onprogress = function (e) {
+      if (!e.lengthComputable) return;
+      var pct = e.loaded * 100 / e.total, secs = (Date.now() - started) / 1000;
+      $('progress').value = pct;
+      $('uploadStatus').textContent = 'Sending ' + size(e.loaded) + ' of ' + size(e.total) +
+        (secs > 1 ? ' · ' + size(e.loaded / secs) + '/s' : '');
+    };
+    xhr.onload = function () {
+      $('progress').classList.add('hidden'); $('cancelRow').classList.add('hidden');
+      $('uploadStatus').textContent = xhr.status === 200 ? 'Playing on the TV: ' + f.name : 'Failed: ' + xhr.responseText;
+      xhr = null; refresh();
+    };
+    xhr.onerror = xhr.onabort = function () {
+      $('progress').classList.add('hidden'); $('cancelRow').classList.add('hidden');
+      $('uploadStatus').textContent = 'Upload stopped.'; xhr = null;
+    };
+    $('progress').value = 0;
+    $('progress').classList.remove('hidden'); $('cancelRow').classList.remove('hidden');
+    $('uploadStatus').textContent = 'Starting…';
+    xhr.send(f);
+    this.value = '';
+  });
+  $('cancel').addEventListener('click', function () { if (xhr) xhr.abort(); });
+
+  $('sendUrl').addEventListener('click', function () {
+    var url = $('url').value.trim();
+    if (!url) return;
+    fetch('/api/url', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ url: url }) })
+      .then(function (r) { return r.text().then(function (t) { $('urlStatus').textContent = r.ok ? 'Sent to the TV.' : t; }); })
+      .catch(function () { $('urlStatus').textContent = 'Could not reach the TV.'; });
+  });
+
+  function control(q) { return fetch('/api/control?' + q).then(refresh).catch(function () {}); }
+  document.querySelectorAll('[data-cmd]').forEach(function (b) {
+    b.addEventListener('click', function () { control('cmd=' + b.getAttribute('data-cmd')); });
+  });
+
+  var seeking = false, volumeTouched = 0;
+  $('seek').addEventListener('input', function () { seeking = true; });
+  $('seek').addEventListener('change', function () {
+    var d = Number(this.dataset.duration || 0);
+    control('cmd=seek&ms=' + Math.round(d * this.value / 1000));
+    seeking = false;
+  });
+  $('volume').addEventListener('input', function () { volumeTouched = Date.now(); });
+  $('volume').addEventListener('change', function () { volumeTouched = Date.now(); control('cmd=volume&v=' + this.value); });
+
+  var labels = { PLAYING: 'Playing', PAUSED_PLAYBACK: 'Paused', STOPPED: 'Stopped', TRANSITIONING: 'Loading', NO_MEDIA_PRESENT: '' };
+  function refresh() {
+    return fetch('/api/status').then(function (r) { return r.json(); }).then(function (s) {
+      var label = labels[s.state] || '';
+      $('now').textContent = s.mirroring ? 'Mirroring from ' + s.mirroring : (s.title ? label + ': ' + s.title : 'Nothing playing');
+      $('mirrorRow').classList.toggle('hidden', !s.mirroring);
+      var seek = $('seek');
+      seek.disabled = !(s.duration > 0);
+      seek.dataset.duration = s.duration;
+      if (!seeking) seek.value = s.duration > 0 ? Math.round(s.position * 1000 / s.duration) : 0;
+      $('time').textContent = s.duration > 0 ? fmt(s.position) + ' / ' + fmt(s.duration) : '';
+      if (Date.now() - volumeTouched > 3000) $('volume').value = s.volume;
+    }).catch(function () { $('now').textContent = 'TV not reachable'; });
+  }
+  refresh();
+  setInterval(refresh, 1500);
+})();
+</script>
+</body>
+</html>

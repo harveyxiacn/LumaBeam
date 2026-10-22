@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">光束投屏</string>
+
+    <string name="tv_step_apps">📺  <b>视频App投屏</b>：在 iPhone、iPad 或安卓手机的视频App中点击“投屏/TV”按钮，选择这台电视。</string>
+    <string name="tv_step_android">📱  <b>安卓手机镜像</b>：在手机上安装“光束投屏”，选择这台电视即可镜像整个屏幕和声音。</string>
+    <string name="tv_step_web">🌐  <b>任何手机或平板</b>：扫码发送照片、视频和音乐。</string>
+    <string name="tv_step_web_url">🌐  任何手机或平板：扫码或在浏览器打开 %1$s 发送照片、视频和音乐。</string>
+    <string name="network_info">已就绪 · %1$s · 请与手机连接同一 Wi-Fi</string>
+    <string name="no_network">未连接网络。请将电视连接到 Wi-Fi 或有线网络。</string>
+    <string name="qr_hint">用手机相机扫码</string>
+    <string name="qr_description">本电视地址的二维码</string>
+    <string name="rename">重命名电视</string>
+    <string name="allow_popup">允许在其他应用上方显示投屏</string>
+    <string name="overlay_unavailable">此电视不支持该设置；请保持“光束投屏”在前台以接收投屏。</string>
+    <string name="paused">已暂停</string>
+    <string name="cannot_play">无法播放“%1$s”</string>
+    <string name="mirroring_from">正在镜像：%1$s</string>
+    <string name="mirroring_ended">%1$s 已停止镜像</string>
+    <string name="receiver_channel">接收端</string>
+    <string name="receiver_ready">%1$s 已准备好接收投屏</string>
+
+    <string name="sender_subtitle">把手机屏幕和声音投到电视</string>
+    <string name="tvs_nearby">网络中的电视</string>
+    <string name="searching">正在查找运行“光束投屏”的电视…</string>
+    <string name="tap_to_mirror">点击电视开始镜像</string>
+    <string name="tv_entry">📺  %1$s\n%2$s</string>
+    <string name="manual_ip">没找到？输入电视上显示的地址：</string>
+    <string name="connect">连接</string>
+    <string name="bad_ip">请输入类似 192.168.1.50 的地址</string>
+    <string name="quality">画质</string>
+    <string name="quality_smooth">流畅 – 720p，适合信号较弱的 Wi-Fi</string>
+    <string name="quality_hd">高清 – 1080p（推荐）</string>
+    <string name="quality_max">极致 – 最高 1440p，需 5GHz Wi-Fi</string>
+    <string name="send_audio">在电视上播放手机声音</string>
+    <string name="audio_note">部分App禁止录制声音（例如一些视频App），它们的声音会留在手机上。</string>
+    <string name="audio_unsupported">投送声音需要 Android 10 或更高版本，此手机仅投送画面。</string>
+    <string name="audio_denied">未授予该权限，声音将保留在手机上。</string>
+    <string name="capture_denied">未允许屏幕录制。</string>
+    <string name="already_mirroring">正在镜像中，请先停止再切换电视。</string>
+    <string name="sender_tips">提示：使用 5GHz Wi-Fi 或给电视接网线，画面最流畅。视频App也可以直接投屏——在投屏菜单中找到这台电视即可。</string>
+    <string name="use_as_receiver">将本设备用作接收端</string>
+    <string name="stop_mirroring">停止镜像</string>
+    <string name="stop">停止</string>
+    <string name="sender_channel">屏幕镜像</string>
+    <string name="mirroring_to">正在镜像到 %1$s</string>
+    <string name="connecting_to">正在连接 %1$s…</string>
+    <string name="reconnecting_to">正在重新连接 %1$s…</string>
+    <string name="reconnecting_detail">Wi-Fi 短暂中断，镜像会自动恢复。</string>
+    <string name="ended_by_tv">电视已结束镜像。</string>
+    <string name="tv_unreachable">无法连接电视。请确认两者在同一 Wi-Fi，且电视上已打开本应用。</string>
+</resources>
